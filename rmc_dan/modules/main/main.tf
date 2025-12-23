@@ -1,8 +1,14 @@
 
-module "databases"{
+module "databases" {
     source = "../databases"
+    providers = {
+        snowflake = snowflake
+  }
 }
 
-module "warehouses"{
+module "warehouses" {
     source = "../warehouses"
+    providers = {
+        snowflake = snowflake
+    }
 }
