@@ -19,4 +19,6 @@ provider "snowflake" {
     role              = "SYSADMIN"
     authenticator     = "SNOWFLAKE_JWT"
     private_key       = file(local.private_key_path)
+    preview_features_enabled = ["snowflake_table_resource"]
+
 }
