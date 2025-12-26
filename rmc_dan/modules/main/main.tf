@@ -9,18 +9,18 @@ module "databases" {
     source = "../databases"
     providers = {
         snowflake = snowflake
- }
-    database_names = var.database_names
+    database_names =   keys(var.db_schema_map)
+    }
 }
 
-module "schemas" {
-    source        = "../schemas"
-    providers = {snowflake = snowflake }
+# module "schemas" {
+#     source        = "../schemas"
+#     providers = {snowflake = snowflake }
 
-    database_name = var.database_names
-    schema_name   = var.schema_names
-    depends_on    = [module.databases]
-}
+#     database_name = var.database_names
+#     schema_name   = var.schema_names
+#     depends_on    = [module.databases]
+# }
 
 # module "procedures" {
 #     source        = "../procedures"

@@ -1,3 +1,3 @@
 variable "database_names" {
-  type    = list(string)
+  type = list(string)
 }
