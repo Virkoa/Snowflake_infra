@@ -1,3 +1,3 @@
-output "schema_name" {
-  value = snowflake_schema.tf_db_tf_schema.name
+output "db_schemas_pairs" {
+  value = local.db_schemas_pairs
 }

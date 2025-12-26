@@ -1,4 +1,7 @@
-resource "snowflake_database" "tf_db" {
-  name         = "TF_DEMO_DB"
-  is_transient = false
+
+
+resource "snowflake_database" "databases" {
+  for_each      = toset(var.database_names)
+  name          = each.value
+  is_transient  = false
 }

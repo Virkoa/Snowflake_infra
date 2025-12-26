@@ -1,3 +1,4 @@
-output "database_name" {
-  value = snowflake_database.tf_db.name
+output "test_output" {
+  description = "Public IP of EC2 instance"
+  value = "Hi there"
 }
