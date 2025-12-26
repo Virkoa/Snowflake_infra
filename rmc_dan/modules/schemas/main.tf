@@ -1,21 +1,18 @@
 locals {
-  dbs     = toset(var.database_name)
-  schemas = toset(var.schema_name)
-
-  db_schemas_pairs = {
-    for pair in flatten([
-      for d in local.dbs : [
-        for s in local.schemas : { db = d, schema = s }
-      ]
-    ]) : "${pair.db}::${pair.schema}" => pair
-  }
+  db_schemas_pairs = merge([
+    for db_name, schemas in var.db_schema_map : {
+      for schema_name, _ in schemas :
+      "${db_name}.${schema_name}" => {
+        database = db_name
+        schema   = schema_name
+      }
+    }
+  ]...)
 }
 
 
-resource "snowflake_schema" "schemas" {
-  for_each            = local.db_schemas_pairs
-  name                = each.value.schema
-  database            = each.value.db
-  with_managed_access = false
+resource "snowflake_schema" "this" {
+  for_each = local.db_schemas_pairs
+  name     = each.value.schema
+  database = each.value.database
 }
-

@@ -17,3 +17,7 @@ variable "db_schema_map" {
     }
   }
 }
+
+variable "env" {
+  type = string
+}

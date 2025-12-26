@@ -5,5 +5,6 @@ module "main" {
   providers = {
     snowflake = snowflake
     }
+  env = var.env
 }
 

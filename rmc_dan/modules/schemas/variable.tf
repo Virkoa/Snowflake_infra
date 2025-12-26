@@ -1,7 +1,6 @@
-variable "schema_name" {
-  type    = list(string)
-}
-
-variable "database_name" {
-  type    = list(string)
+variable "db_schema_map" {
+  type = map(map(object({
+    procs  = list(string)
+    tables = list(string)
+  })))
 }
