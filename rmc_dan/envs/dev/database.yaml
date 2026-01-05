@@ -30,3 +30,18 @@ databases:
               - name: EMAIL
                 type: STRING
                 nullable: false
+  HME_DB:
+    comment: "HME database"
+    schemas:
+      ANALYTICS:
+        comment: "Analytics schema"
+        tables:
+          SALES:
+            comment: "Sales data"
+            columns:
+              - name: SALE_ID
+                type: NUMBER
+                nullable: false
+              - name: AMOUNT
+                type: FLOAT
+                nullable: false

@@ -1,5 +1,5 @@
 variable "db_config" {
-  type        = string
+  type        = any
   description = "Database configuration"
 }
 
