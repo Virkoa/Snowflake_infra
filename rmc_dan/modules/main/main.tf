@@ -1,44 +1,9 @@
-module "warehouses" {
-    source = "../warehouses"
-    providers = {
-        snowflake = snowflake
-    }
+
+
+
+resource "snowflake_database" "databases" {
+  for_each = local.db_config.databases
+
+  name    = each.key
+  comment = each.value.comment
 }
-
-module "databases" {
-    source = "../databases"
-    providers = {
-        snowflake = snowflake
-    }
-    database_names = keys(var.db_schema_map)
-}
-
-module "schemas" {
-    source        = "../schemas"
-    providers = {snowflake = snowflake }
-    db_schema_map = var.db_schema_map
-    depends_on    = [module.databases]
-}
-
-# module "procedures" {
-#     source        = "../procedures"
-#     providers = {
-#         snowflake = snowflake
-#     }
-#     database_names = var.database_names
-#     schema_names   = var.schema_names
-#     depends_on    = [module.databases, module.schemas]
-# }
-
-
-# module "tables" {
-#     source        = "../tables"
-#         providers = {
-#             snowflake = snowflake
-#         }
-#     database_name = module.databases.database_name
-#     schema_name =   module.schemas.schema_name
-
-#     depends_on    = [module.databases, module.schemas]
-
-# }

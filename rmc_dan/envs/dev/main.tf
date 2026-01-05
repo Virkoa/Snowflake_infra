@@ -1,4 +1,8 @@
 
+locals {
+  db_config = yamldecode(file("${path.module}/database.yaml"))
+}
+
 
 module "main" {
   source = "../../modules/main"
@@ -6,5 +10,6 @@ module "main" {
     snowflake = snowflake
     }
   env = var.env
+  db_config = local.db_config
 }
 

@@ -1,0 +1,32 @@
+databases:
+  RMC_DB:
+    comment: "RMC database"
+    schemas:
+      RAW:
+        comment: "Raw ingested data"
+        tables:
+          EVENTS:
+            comment: "Raw events data"
+            columns:
+              - name: ID
+                type: NUMBER
+                nullable: false
+              - name: EVENT_TIME
+                type: TIMESTAMP_NTZ
+                nullable: false
+              - name: PAYLOAD
+                type: VARIANT
+                nullable: true
+
+      GOLD:
+        comment: "Gold layer"
+        tables:
+          USERS:
+            comment: "User dimension table"
+            columns:
+              - name: USER_ID
+                type: NUMBER
+                nullable: false
+              - name: EMAIL
+                type: STRING
+                nullable: false
