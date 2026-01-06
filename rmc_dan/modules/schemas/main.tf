@@ -1,18 +1,24 @@
 locals {
-  db_schemas_pairs = merge([
-    for db_name, schemas in var.db_schema_map : {
-      for schema_name, _ in schemas :
-      "${db_name}.${schema_name}" => {
+  # extract schemas from db_config
+  schemas = flatten([
+    for db_name, db in var.db_config.databases : [
+      for schema_name, schema in db.schemas : {
         database = db_name
-        schema   = schema_name
+        name     = schema_name
+        comment  = schema.comment
       }
-    }
-  ]...)
+    ]
+  ])
 }
 
 
-resource "snowflake_schema" "this" {
-  for_each = local.db_schemas_pairs
-  name     = each.value.schema
+resource "snowflake_schema" "schemas" {
+  for_each = {
+    for s in local.schemas :
+    "${s.database}.${s.name}" => s
+  }
+
   database = each.value.database
+  name     = each.value.name
+  comment  = each.value.comment
 }

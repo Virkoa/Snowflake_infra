@@ -1,9 +1,26 @@
 
 
 
-resource "snowflake_database" "databases" {
-  for_each = var.db_config.databases
 
-  name    = each.key
-  comment = each.value.comment
+module "databases" {
+    source = "../databases"
+    providers = {
+        snowflake = snowflake
+    }
+    db_config = var.db_config
+}
+
+
+module "schemas" {
+    source        = "../schemas"
+    providers = {snowflake = snowflake }
+    db_config = var.db_config
+    depends_on    = [module.databases]
+}
+
+module "tables" {
+    source        = "../tables"
+    providers = {snowflake = snowflake }
+    db_config = var.db_config
+    depends_on    = [module.databases]
 }

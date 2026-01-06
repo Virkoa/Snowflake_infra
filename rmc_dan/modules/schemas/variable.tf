@@ -1,6 +1,4 @@
-variable "db_schema_map" {
-  type = map(map(object({
-    procs  = list(string)
-    tables = list(string)
-  })))
+variable "db_config" {
+  description = "The full database config with schemas and tables"
+  type        = any
 }

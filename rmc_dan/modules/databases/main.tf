@@ -1,6 +1,9 @@
 
+resource "snowflake_database" "databases" {
+  for_each = var.db_config.databases
 
-resource "snowflake_database" "this" {
-  for_each = toset(var.database_names)
-  name = each.value
+  name    = each.key
+  comment = each.value.comment
+
 }
+

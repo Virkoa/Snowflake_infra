@@ -1,7 +1,4 @@
-variable "database_name" {
-  type = string
-}
-
-variable "schema_name" {
-  type = string
+variable "db_config" {
+  description = "The full database config with schemas and tables"
+  type        = any
 }

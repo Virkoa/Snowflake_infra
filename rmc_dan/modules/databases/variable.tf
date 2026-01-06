@@ -1,3 +1,4 @@
-variable "database_names" {
-  type = list(string)
+variable "db_config" {
+  type = any
+  description = "Database configuration"
 }
